@@ -1,0 +1,37 @@
+{
+  "builders": [
+    {
+      "type": "docker",
+      "image": "nginx",
+      "commit": "true",
+      "changes": [
+        "EXPOSE 80",
+        "LABEL version=1.0",
+        "CMD nginx -g daemon off;"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "./playbook.yml",
+      "user": "root",
+      "extra_arguments": ["-vvvv"]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "roninhockley/nginx",
+        "tag": "0.3"
+      },
+      {
+        "type": "docker-push",
+        "login": true,
+        "login_username": "{{user `login_username`}}",
+        "login_password": "{{user `login_password`}}"
+      }
+    ]
+  ]
+}

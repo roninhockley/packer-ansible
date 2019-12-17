@@ -1,0 +1,23 @@
+---
+- name: install docker
+  hosts: all
+  become: yes
+  vars:
+    pip_install_packages:
+      - docker
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+  tasks:
+  - name: add user ron to docker group
+    user:
+      name: ron
+      groups: docker
+      append: yes
+  - name: add user nikky to docker group
+    user:
+      name: nikky
+      groups: docker
+      append: yes
+  - include_tasks: ../tasks/noswap.yml
+  - include_tasks: ../tasks/jenkins-docker.yml

@@ -1,0 +1,5 @@
+---
+
+firewalld: yes # Install and configure firewalld by default
+
+...

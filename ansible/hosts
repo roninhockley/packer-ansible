@@ -1,0 +1,36 @@
+[dockerhost]
+docker ansible_host=192.168.1.193
+ubuntu-docker ansible_host=192.168.1.221
+[kvm]
+server1 ansible_host=192.168.1.120
+server2 ansible_host=192.168.1.130
+server3 ansible_host=192.168.1.125
+
+[atlassian]
+bitbucket ansible_host=192.168.1.160
+confluence ansible_host=192.168.1.123
+jira ansible_host=192.168.1.231
+postgre ansible_host=192.168.1.244
+
+[infra]
+grav ansible_host=192.168.1.171
+dns ansible_host=192.168.1.206
+
+
+[vm]
+docker ansible_host=192.168.1.193
+bitbucket ansible_host=192.168.1.160
+confluence ansible_host=192.168.1.123
+jira ansible_host=192.168.1.231
+postgre ansible_host=192.168.1.244
+grav ansible_host=192.168.1.171
+gitlab ansible_host=192.168.1.104
+ansible-test ansible_host=192.168.1.189
+[all:vars]
+ansible_become = yes
+ansible_user = ron
+
+[k8s]
+master ansible_host=192.168.1.100 kubernetes_role=master
+node1  ansible_host=192.168.1.118 kubernetes_role=node
+node2  ansible_host=192.168.1.161 kubernetes_role=node

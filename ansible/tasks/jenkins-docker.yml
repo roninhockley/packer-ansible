@@ -1,0 +1,11 @@
+---
+  - name: run jenkins container
+    docker_container:
+      name: jenkins
+      image: roninhockley/jenkins-master
+      state: started
+      ports:
+        - "49001:8080"
+      volumes:
+        - jenkins_home:/var/jenkins_home
+        - /var/run/docker.sock:/var/run/docker.sock

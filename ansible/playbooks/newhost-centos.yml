@@ -1,0 +1,46 @@
+---
+- name: newhost setup for centos
+  become: yes
+  hosts: all
+  gather_facts: yes
+  vars:
+    usrnames:
+    - ron
+    - nikky
+    packages:
+    - epel-release
+    - nmap
+    - htop
+    - nano
+    - vim
+    - wget
+  tasks:
+  - name: install packages
+    package:
+      name: "{{ item }}"
+      state: present
+    loop: "{{packages}}"
+  - name: Create ron and nikky users
+    user:
+      name: "{{ item }}"
+      state: present
+      shell: "/bin/bash"
+      groups: wheel
+    loop: "{{usrnames}}"
+  - name: Set authorized key for user ron
+    authorized_key:
+      user: ron
+      state: present
+      key: "{{ lookup('file', '../keys/id_rsa.pub') }}"
+  - name: Set authorized key for user nikky
+    authorized_key:
+      user: nikky
+      state: present
+      key: "{{ lookup('file', '../keys/nikky.pub') }}"
+  - name: passwordless sudo for wheel group
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^%wheel'
+      line: '%wheel ALL=(ALL) NOPASSWD:ALL'
+      validate: 'visudo -cf %s'

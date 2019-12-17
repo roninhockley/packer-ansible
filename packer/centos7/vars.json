@@ -1,0 +1,7 @@
+{
+  "iso_url": "http://ftp.utexas.edu/centos/7.7.1908/isos/x86_64/CentOS-7-x86_64-NetInstall-1908.iso",
+  "iso_checksum": "6ffa7ad44e8716e4cd6a5c3a85ba5675a935fc0448c260f43b12311356ba85ad",
+  "ssh_username": "packer",
+  "ssh_password": "packer",
+  "output_directory": "/home/ron/images/{{user `build_name`}}"
+}

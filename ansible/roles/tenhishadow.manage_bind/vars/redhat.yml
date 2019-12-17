@@ -1,0 +1,6 @@
+---
+
+bind_package: bind-chroot
+bind_service: named-chroot
+
+...

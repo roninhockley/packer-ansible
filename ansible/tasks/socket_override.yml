@@ -1,0 +1,11 @@
+- name: daemon socket override for network connections
+  blockinfile:
+      path: /etc/systemd/system/docker.service.d/override.conf
+      create: yes 
+      block:  |
+        [Service]
+        ExecStart=
+        ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375
+  notify:
+    - reload and restart docker
+

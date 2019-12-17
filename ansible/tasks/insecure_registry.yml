@@ -1,0 +1,5 @@
+- name: configure docker for insecure gitlab registry
+  lineinfile:
+      path: /etc/default/docker
+      create: yes
+      line: DOCKER_OPTS="--insecure-registry=https://gitlab.nikkyrron.com:4567"

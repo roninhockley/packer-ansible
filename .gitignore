@@ -1,0 +1,10 @@
+# Cache objects
+packer_cache/
+# images folder
+images
+# virtual env
+venv
+# For built boxes
+*.box
+*.retry
+.vscode/settings.json

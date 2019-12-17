@@ -1,0 +1,14 @@
+---
+
+- name: restart firewalld
+  service:
+    name: firewalld
+    state: restarted
+
+- name: restart bind
+  service:
+    name: "{{ bind_service }}"
+    state: restarted
+    enabled: yes
+
+...

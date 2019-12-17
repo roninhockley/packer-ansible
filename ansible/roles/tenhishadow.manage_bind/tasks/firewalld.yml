@@ -1,0 +1,23 @@
+---
+
+- name: install firewalld
+  yum:
+    name: firewalld
+    state: present
+  notify:
+  - restart firewalld
+
+- name: start and enable firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: configure firewalld
+  firewalld:
+    service: dns
+    state: enabled
+    permanent: yes
+    immediate: yes
+
+...

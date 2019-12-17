@@ -1,0 +1,19 @@
+---
+
+zones:
+  example.com:
+    file: "example.com.zone"
+    zone_serial: '2018052901'
+    zone_refresh: '3600'
+    zone_retry: '7200'
+    zone_expire: '3600000'
+    zone_minimum: '3600'
+  example1.com:
+    file: "example1.com.zone"
+    zone_serial: '2018081301'
+    zone_refresh: '3600'
+    zone_retry: '7200'
+    zone_expire: '3600000'
+    zone_minimum: '3600'
+
+...

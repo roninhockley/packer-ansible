@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  any_errors_fatal: yes
+  vars:
+    - configs: '/etc/ansible/roles/manage_bind/tests/configs'
+  vars_files:
+    - '/etc/ansible/roles/manage_bind/tests/configs/ansible_vars.yml'
+  roles:
+  - manage_bind
+
+...

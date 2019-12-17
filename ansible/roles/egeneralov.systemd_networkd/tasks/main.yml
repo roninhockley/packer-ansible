@@ -1,0 +1,46 @@
+---
+# tasks file for egeneralov.systemd-networkd
+
+- name: remove dns from dhcp first line
+  replace:
+    path: /etc/dhcp/dhclient.conf
+    regexp: 'domain-name.*?host-name,'
+    replace: ''
+
+- name: remove dns from dhcp 2d line
+  replace:
+    path: /etc/dhcp/dhclient.conf
+    regexp: 'dhcp6.*?servers,'
+    replace: ''
+
+- name: add dns and search to resolv.conf
+  blockinfile:
+    dest: /etc/resolv.conf
+    state: present
+    block: |
+      nameserver 192.168.1.206
+      search nikkyrron.com
+
+- name: place networking units
+  template:
+    src: eth0.network.j2
+    dest: /etc/systemd/network/eth0.network
+
+- name: enable new networking units
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - systemd-networkd.service
+
+- name: disable old networking.service
+  systemd:
+    name: networking.service
+    state: started
+    enabled: no
+
+- name: remove interfaces file
+  file:
+    path: /etc/network/interfaces
+    state: absent

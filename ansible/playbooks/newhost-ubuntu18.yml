@@ -1,0 +1,71 @@
+---
+- name: newhost setup for ubuntu18
+  become: yes
+  hosts: all
+  gather_facts: yes
+  vars:
+    usrnames:
+    - ron
+    - nikky
+    packages:
+    - build-essential
+    - nmap
+    - htop
+    - vim
+    - curl
+    - wget
+  tasks:
+  - name: install packages
+    package:
+      name: "{{ item }}"
+      state: present
+    loop: "{{packages}}"
+  - name: Create ron and nikky users
+    user:
+      name: "{{ item }}"
+      state: present
+      shell: "/bin/bash"
+      groups: sudo
+    loop: "{{usrnames}}"
+  - name: Set authorized key for user ron
+    authorized_key:
+      user: ron
+      state: present
+      key: "{{ lookup('file', '../keys/id_rsa.pub') }}"
+  - name: Set authorized key for user nikky
+    authorized_key:
+      user: nikky
+      state: present
+      key: "{{ lookup('file', '../keys/nikky.pub') }}"
+  - name: passwordless sudo for sudo group
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^%sudo'
+      line: '%sudo ALL=(ALL:ALL) NOPASSWD:ALL'
+      validate: 'visudo -cf %s'
+  - name: remove dns from dhcp first line
+    replace:
+      path: /etc/dhcp/dhclient.conf
+      regexp: 'domain-name.*?host-name,'
+      replace: ''
+
+  - name: remove dns from dhcp 2d line
+    replace:
+      path: /etc/dhcp/dhclient.conf
+      regexp: 'dhcp6.*?servers,'
+      replace: ''
+
+  - name: remove resolv.conf link
+    file:
+      path: /etc/resolv.conf
+      state: absent
+
+  - name: add dns and search to resolv.conf
+    blockinfile:
+      dest: /etc/resolv.conf
+      state: present
+      create: yes
+      block: |
+        nameserver 192.168.1.206
+        search nikkyrron.com

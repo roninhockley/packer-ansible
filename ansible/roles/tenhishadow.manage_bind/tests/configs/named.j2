@@ -1,0 +1,37 @@
+# {{ ansible_managed }}
+options {
+ listen-on port 53              { any; };
+ listen-on-v6 port 53           { any; };
+ directory                      "/var/named";
+ dump-file                      "/var/named/data/cache_dump.db";
+ statistics-file                "/var/named/data/named_stats.txt";
+ memstatistics-file             "/var/named/data/named_mem_stats.txt";
+ pid-file                       "/run/named/named.pid";
+ session-keyfile                "/run/named/session.key";
+ allow-query                    { any; };
+ recursion                      no;
+ version                        "AIX 5.1.0";
+ auth-nxdomain                  no;
+ dnssec-enable                  yes;
+ dnssec-validation              auto;
+ bindkeys-file                  "/etc/named.iscdlv.key";
+ managed-keys-directory         "/var/named/dynamic";
+ transfers-out                  100;
+};
+
+logging {
+ channel  default_debug {
+ file     "data/named.run";
+ severity dynamic;
+ };
+};
+
+# START ZONES
+{% for key, value in zones.iteritems() %}
+zone "{{ key }}" {
+ type           master;
+ file           "/var/named/data/{{ value.file }}";
+ allow-transfer { none; };
+};
+{% endfor %}
+# END OF ZONES

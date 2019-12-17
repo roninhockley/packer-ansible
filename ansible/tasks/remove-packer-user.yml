@@ -1,0 +1,13 @@
+---
+- name: 
+  hosts: all
+  become: yes
+  tasks:
+  - name: set packer to nologin
+    user:
+      name: packer
+      shell: /bin/nologin
+  - name: remove sudo for packer user
+    file:
+      path: /etc/sudoers.d/packer
+      state: absent

@@ -1,0 +1,59 @@
+{
+    "variables": {
+      "build_name": ""
+    },
+    "provisioners": [
+      {
+      "type": "shell",
+      "execute_command": "echo 'packer' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/setup.sh"
+    },
+
+        {
+        "type": "ansible",
+        "playbook_file": "main.yml",
+        "ansible_env_vars": [ "ANSIBLE_ROLES_PATH=/home/ron/packer-ansible/ansible/roles" ]
+      }
+
+    ],
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "sha256",
+      "output_directory": "{{user `output_directory`}}",
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+      "disk_size": 5000,
+      "headless": true,
+      "http_directory": "http",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_timeout": "60m",
+      "vm_name": "{{user `build_name`}}.qcow2",
+      "cpus": 2,
+      "memory": 1024,
+      "boot_wait": "10s",
+      "boot_command": [
+        "<esc><wait>",
+        "install <wait>",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_US.UTF-8 <wait>",
+        "auto <wait>",
+        "locale=en_US.UTF-8 <wait>",
+        "kbd-chooser/method=us <wait>",
+        "keyboard-configuration/xkb-keymap=us <wait>",
+        "netcfg/get_hostname={{ .Name }} <wait>",
+        "netcfg/get_domain=nikkyrron.com <wait>",
+        "fb=false <wait>",
+        "debconf/frontend=noninteractive <wait>",
+        "console-setup/ask_detect=false <wait>",
+        "console-keymaps-at/keymap=us <wait>",
+        "grub-installer/bootdev=/dev/vda <wait>",
+        "<enter><wait>"
+      ]
+
+    }
+  ]
+}

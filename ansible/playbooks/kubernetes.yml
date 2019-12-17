@@ -1,0 +1,7 @@
+- hosts: k8s
+
+  vars:
+    kubernetes_allow_pods_on_master: false
+
+  roles:
+    - geerlingguy.kubernetes

@@ -1,0 +1,19 @@
+---
+  - name: install everything for AWX
+    hosts: docker
+    vars:
+      packages:
+        - git
+        - python-pip
+        - ansible
+      pips:
+        - setuptools
+        - docker-compose
+    tasks:
+      - name: install packages for awx
+        package:
+          name: "{{packages}}"
+          state: present
+      - name: install python tools
+        pip:
+          name: "{{pips}}"

@@ -44,7 +44,6 @@
         "<enter><wait>",
         "<esc><wait>",
         "<enter><wait>",
-        "/install/vmlinuz<wait>",
         " auto<wait>",
         " console-setup/ask_detect=false<wait>",
         " console-setup/layoutcode=us<wait>",

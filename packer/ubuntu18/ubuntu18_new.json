@@ -38,7 +38,7 @@
       "vm_name": "{{user `build_name`}}.qcow2",
       "cpus": 2,
       "memory": 1024,
-      "boot_wait": "15s",
+      "boot_wait": "45s",
       "boot_command": [
         "<esc><wait>",
         "<esc><wait>",

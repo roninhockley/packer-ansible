@@ -41,6 +41,7 @@
       "boot_wait": "2s",
       "boot_command": [
         "<esc><wait>",
+        "<enter><wait>",
         "<esc><wait>",
         "<enter><wait>",
         "/install/vmlinuz<wait>",

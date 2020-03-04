@@ -23,9 +23,9 @@
     {
       "type": "qemu",
       "iso_urls": [
-        "http://cdimage.ubuntu.com/releases/bionic/release/ubuntu-18.04.3-server-amd64.iso"
+        "http://ftp.utexas.edu/ubuntu-iso/bionic/ubuntu-18.04.4-live-server-amd64.iso"
         ],
-      "iso_checksum": "7d8e0055d663bffa27c1718685085626cb59346e7626ba3d3f476322271f573e",
+      "iso_checksum": "73b8d860e421000a6e35fdefbb0ec859b9385b0974cf8089f5d70a87de72f6b9",
       "iso_checksum_type": "sha256",
       "output_directory": "{{user `output_directory`}}",
       "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
@@ -38,7 +38,7 @@
       "vm_name": "{{user `build_name`}}.qcow2",
       "cpus": 2,
       "memory": 1024,
-      "boot_wait": "10s",
+      "boot_wait": "4s",
       "boot_command": [
         "<esc><wait>",
         "<esc><wait>",

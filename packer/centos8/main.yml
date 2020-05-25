@@ -1,0 +1,2 @@
+---
+- import_playbook: ../../ansible/playbooks/newhost-centos.yml

@@ -24,7 +24,7 @@
       "iso_checksum_type": "sha256",
       "output_directory": "{{user `output_directory`}}",
       "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
-      "disk_size": 5000,
+      "disk_size": 25000,
       "headless": true,
       "cpus": 2,
       "memory": 1024,
@@ -35,7 +35,7 @@
       "vm_name": "{{user `build_name`}}.qcow2",
       "boot_wait": "10s",
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos7-ks.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ]
     }
   ]

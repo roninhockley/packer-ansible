@@ -24,7 +24,7 @@
       "iso_checksum_type": "sha256",
       "output_directory": "{{user `output_directory`}}",
       "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
-      "disk_size": 25000,
+      "disk_size": 30000,
       "headless": true,
       "cpus": 2,
       "memory": 1024,

@@ -6,7 +6,6 @@
     pip_install_packages:
       - docker
   roles:
-    - geerlingguy.pip
     - geerlingguy.docker
   tasks:
   - name: add user ron to docker group

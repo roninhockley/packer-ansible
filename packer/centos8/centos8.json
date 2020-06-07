@@ -1,0 +1,42 @@
+{
+  "variables": {
+    "build_name": ""
+  },
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'packer' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/setup.sh"
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "{{user `playbook_file`}}",
+      "ansible_env_vars": [ "ANSIBLE_ROLES_PATH=/home/ron/packer-ansible/ansible/roles" ]
+    }
+
+  ],
+  "builders":
+  [
+    {
+      "type": "qemu",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "sha256",
+      "output_directory": "{{user `output_directory`}}",
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+      "disk_size": 32000,
+      "headless": true,
+      "cpus": 2,
+      "memory": 1024,
+      "http_directory": "http",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_timeout": "60m",
+      "vm_name": "{{user `build_name`}}.qcow2",
+      "boot_wait": "10s",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ]
+    }
+  ]
+}

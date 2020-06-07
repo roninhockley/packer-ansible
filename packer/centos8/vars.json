@@ -1,0 +1,7 @@
+{
+  "iso_url": "http://ftp.utexas.edu/centos/8/isos/x86_64/CentOS-8.1.1911-x86_64-boot.iso",
+  "iso_checksum": "7fea13202bf2f26989df4175aace8fdc16e1137f7961c33512cbfad844008948",
+  "ssh_username": "packer",
+  "ssh_password": "packer",
+  "output_directory": "/home/ron/images/{{user `build_name`}}"
+}

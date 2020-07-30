@@ -14,8 +14,6 @@
     - vim
     - curl
     - net-tools
-  roles:
-    - egeneralov.systemd_networkd
   tasks:
   - name: install packages
     package:

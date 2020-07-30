@@ -1,6 +1,6 @@
 {
-  "iso_url": "http://ftp.utexas.edu/debian-cd/current/amd64/iso-cd/debian-10.1.0-amd64-netinst.iso",
-  "iso_checksum": "7915fdb77a0c2623b4481fc5f0a8052330defe1cde1e0834ff233818dc6f301e",
+  "iso_url": "http://ftp.utexas.edu/debian-cd/current/amd64/iso-cd/debian-10.4.0-amd64-netinst.iso",
+  "iso_checksum": "ab3763d553330e90869487a6843c88f1d4aa199333ff16b653e60e59ac1fc60b",
   "ssh_username": "packer",
   "ssh_password": "packer",
   "output_directory": "/home/ron/images/{{user `build_name`}}"
